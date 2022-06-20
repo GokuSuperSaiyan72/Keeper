@@ -20,6 +20,7 @@ const DashBoard = () => {
           marginTop: "3.5%",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
           flexWrap: "wrap",
         }}
       >

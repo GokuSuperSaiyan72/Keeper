@@ -7,7 +7,7 @@ const TaskCard = ({ data }) => {
       <div>{data.note}</div>
       <div
         style={{
-          marginTop: "20px",
+          marginTop: "40px",
           display: "flex",
           justifyContent: "flex-end",
         }}
