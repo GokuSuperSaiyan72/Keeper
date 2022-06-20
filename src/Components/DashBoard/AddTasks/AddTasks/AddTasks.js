@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./AddTasks.css";
 import TaskCard from "./TaskCard";
 
@@ -9,17 +9,45 @@ const AddTasks = () => {
 
   const [tasks, setTasks] = useState([]);
 
+  
+    const onAddTasksInLocalStorage =(task)=>{
+        localStorage.setItem("tasks",JSON.stringify(task))
+    }
+    const localStorageTaskItem = JSON.parse(localStorage.getItem("tasks"))
+    useEffect(()=>{
+      if(localStorageTaskItem){
+      setTasks(localStorageTaskItem)
+      }
+    },[title])
+
   const OnAddHandler = () => {
-    setTasks([{ id: tasks.length + 1, title, note }, ...tasks]);
+    let taskitem ={
+      id:tasks.length+1,
+      title,
+      note,
+    }
+      onAddTasksInLocalStorage([taskitem,...tasks])
+    setTasks([ taskitem , ...tasks]);
     setTitle("");
     setNote("");
     setIsInputEnabled(false);
   };
 
   const deleteHandler = (curTask) => {
-    setTasks(tasks.filter((data) => data.id !== curTask.id));
+    
+    const newrray = tasks.filter(data =>  data.id !== curTask.id)
+    setTasks(newrray);
+    localStorage.setItem("tasks",JSON.stringify(newrray))
   };
 
+  const onEditClickHandler =(task)=> {
+    setIsInputEnabled(true)
+    setTitle(task.title)
+    setNote(task.note)
+    setTasks(tasks.filter((task) => task.id !== task.id));
+    
+  }
+console.log(tasks)
   return (
     <div>
       <div className="addTasks">
@@ -57,7 +85,7 @@ const AddTasks = () => {
       >
         {tasks.length
           ? tasks.map((data) => (
-              <TaskCard data={data} deleteHandler={deleteHandler} />
+              <TaskCard data={data} deleteHandler={deleteHandler}  onEditClickHandler={onEditClickHandler}/>
             ))
           : null}
       </div>

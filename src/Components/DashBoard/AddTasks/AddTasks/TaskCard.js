@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "./TaskCard.css";
-const TaskCard = ({ data, deleteHandler }) => {
+const TaskCard = ({ data, deleteHandler,onEditClickHandler }) => {
   return (
     <div className="card">
       <h3>{data.title}</h3>
@@ -18,7 +18,7 @@ const TaskCard = ({ data, deleteHandler }) => {
           }}
           style={{ fontSize: "20px", marginRight: "20px", color: " #ED2939" }}
         />
-        <EditOutlined style={{ fontSize: "20px", color: "#00CED1" }} />
+        <EditOutlined onClick={()=>onEditClickHandler(data)} style={{ fontSize: "20px", color: "#00CED1" }} />
       </div>
     </div>
   );
