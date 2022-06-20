@@ -13,6 +13,11 @@ const AddTasks = () => {
     setTasks([{ id: tasks.length + 1, title, note }, ...tasks]);
     setTitle("");
     setNote("");
+    setIsInputEnabled(false);
+  };
+
+  const deleteHandler = (curTask) => {
+    setTasks(tasks.filter((data) => data.id !== curTask.id));
   };
 
   return (
@@ -41,7 +46,21 @@ const AddTasks = () => {
         ) : null}
       </div>
 
-      <div>{tasks.length ? tasks.map((data) => <TaskCard />) : null}</div>
+      <div
+        style={{
+          display: "flex",
+          margin: "50px auto 0px auto",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {tasks.length
+          ? tasks.map((data) => (
+              <TaskCard data={data} deleteHandler={deleteHandler} />
+            ))
+          : null}
+      </div>
     </div>
   );
 };

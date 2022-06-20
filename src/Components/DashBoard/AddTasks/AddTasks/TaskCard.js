@@ -1,12 +1,25 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "./TaskCard.css";
-const TaskCard = () => {
+const TaskCard = ({ data, deleteHandler }) => {
   return (
     <div className="card">
-      <h3>h1Here</h3>
-      <p>Paragraphher</p>
-      <DeleteOutlined />
-      <EditOutlined />
+      <h3>{data.title}</h3>
+      <p>{data.note}</p>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <DeleteOutlined
+          onClick={() => {
+            deleteHandler(data);
+          }}
+          style={{ fontSize: "20px", marginRight: "20px", color: " #ED2939" }}
+        />
+        <EditOutlined style={{ fontSize: "20px", color: "#00CED1" }} />
+      </div>
     </div>
   );
 };
